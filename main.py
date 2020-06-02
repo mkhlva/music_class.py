@@ -36,6 +36,9 @@ def main():
                 break
             info_track = classes.Album(albom[sel_al - 1]).track()[ans-1]
             chose = 5
+            classes.Track.strat_t = 0
+            classes.Track.time_end = 0
+            classes.Track.time_t = 0
             while chose != 9:
                 print('-------------------------------------')
                 print('1. Воcпроизвести - ', info_track + '\n9. Назад ')
