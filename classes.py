@@ -60,14 +60,15 @@ class Track:
     'Cántalo': 3.39, 'Призрак войны': 3.37, 'На линии огня': 4.14, 'Encore': 4.15, 'Пожар': 3.54,
     'Призрак': 2.49, 'Из-за тебя': 3.18, 'Чувствую': 2.48, 'AMG': 2.51, 'Не хочу': 3.08,
     'Без ключа': 2.39, 'Ночь пятницы': 3.14}
+    strat_t = 0
+    time_t = 0
+    time_end = 0
+
 
 
     def __init__(self, name= ''):
         '''Инициализация'''
         self.name = name
-        self.strat_t = 0
-        self.time_t = 0
-        self.time_end = 0
 
     def __str__(self):
         '''Метод строкового представления'''
@@ -88,15 +89,15 @@ class Track:
     def play(self, trackk):
         '''Метод запуска трека, также можно прервать таймер музыки любым вводом'''
         timeout = 0
-        timeout += self.time_end
+        timeout += Track.time_end
         for k in Track.info_track:
             if trackk == k:
                 timeout += Track.info_track.get(k)
 
         m = math.floor(timeout)
         s = 100 * (timeout - m)
-        timeout = (m * 60) + s
-        self.strat_t = time.time()
+        timeout = (m * 60) + s - 120
+        Track.strat_t = time.time()
         t = Timer(timeout, Track.__end)
         t.start()
         print('♬ ♬ ♬ Трек играет ♬ ♬ ♬')
@@ -114,19 +115,18 @@ class Track:
                 timeout = Track.info_track.get(k)
         m = math.floor(timeout)
         s = 100 * (timeout - m)
-        timeout = (m * 60) + s
-        self.time_t += (time.time() - self.strat_t)
-        h = str(round(self.time_t) // 3600)
-        m = str((round(self.time_t) // 60) % 60)
-        s = str(round(self.time_t) % 60)
-        if self.time_t > timeout:
+        timeout = (m * 60) + s - 120
+        Track.time_t += (time.time() - Track.strat_t)
+        h = str(round(Track.time_t) // 3600)
+        m = str((round(Track.time_t) // 60) % 60)
+        s = str(round(Track.time_t) % 60)
+        if Track.time_t > timeout:
             h = str(round(timeout) // 3600)
             m = str((round(timeout) // 60) % 60)
             s = str(round(timeout) % 60)
             print(h + ':' + m + ':' + s + ' прошло')
         else:
             print('⏸ ' + h + ':' + m + ':' + s + ' прошло')
-            print('---------------------------------------')
 
 
 
