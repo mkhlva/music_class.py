@@ -96,7 +96,7 @@ class Track:
 
         m = math.floor(timeout)
         s = 100 * (timeout - m)
-        timeout = (m * 60) + s - 120
+        timeout = (m * 60) + s
         Track.strat_t = time.time()
         t = Timer(timeout, Track.__end)
         t.start()
@@ -115,7 +115,7 @@ class Track:
                 timeout = Track.info_track.get(k)
         m = math.floor(timeout)
         s = 100 * (timeout - m)
-        timeout = (m * 60) + s - 120
+        timeout = (m * 60) + s
         Track.time_t += (time.time() - Track.strat_t)
         h = str(round(Track.time_t) // 3600)
         m = str((round(Track.time_t) // 60) % 60)
